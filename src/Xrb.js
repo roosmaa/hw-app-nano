@@ -31,7 +31,7 @@ export default class Xrb {
 
   constructor(transport: Transport<*>) {
     this.transport = transport;
-    transport.setScrambleKey("XRB");
+    transport.setScrambleKey("mRB");
   }
 
   /**
