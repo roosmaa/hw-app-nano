@@ -16,8 +16,8 @@
  ********************************************************************************/
 //@flow
 
-import type Transport from '@ledgerhq/hw-transport';
-import BIPPath from 'bip32-path';
+import type Transport from "@ledgerhq/hw-transport";
+import BIPPath from "bip32-path";
 
 /**
  * RaiBlocks API
@@ -31,7 +31,7 @@ export default class Xrb {
 
   constructor(transport: Transport<*>) {
     this.transport = transport;
-    transport.setScrambleKey('mRB');
+    transport.setScrambleKey("mRB");
   }
 
   /**
@@ -59,7 +59,9 @@ export default class Xrb {
     const p1 = boolDisplay ? 0x01 : 0x00;
     const p2 = boolChaincode ? 0x01 : 0x00;
 
-    let buf = Buffer.alloc(1 + bipPath.length * 4);
+    let size = 1 + 4 * bipPath.length; // bipPath
+
+    let buf = Buffer.alloc(size);
     buf.writeUInt8(bipPath.length, 0);
     bipPath.forEach((segment, index) => {
       buf.writeUInt32BE(segment, 1 + 4 * index);
@@ -71,15 +73,15 @@ export default class Xrb {
     const result = {};
     const publicKeyLength = buf.readUInt8(ptr);
     ptr += 1 + publicKeyLength;
-    result.publicKey = buf.slice(ptr - publicKeyLength, ptr).toString('hex');
+    result.publicKey = buf.slice(ptr - publicKeyLength, ptr).toString("hex");
 
     const addressLength = buf.readUInt8(ptr);
     ptr += 1 + addressLength;
-    result.address = buf.slice(ptr - addressLength, ptr).toString('ascii');
+    result.address = buf.slice(ptr - addressLength, ptr).toString("ascii");
 
     if (boolChaincode) {
       ptr += 32;
-      result.chainCode = buf.slice(ptr - 32, ptr).toString('hex');
+      result.chainCode = buf.slice(ptr - 32, ptr).toString("hex");
     }
 
     return result;
@@ -101,16 +103,18 @@ export default class Xrb {
   async signOpenBlock(
     path: string,
     sourceBlock: string,
-    representative: string,
+    representative: string
   ): Promise<{
     blockHash: string,
-    signature: string,
+    signature: string
   }> {
     if (sourceBlock.length != 64) {
-      throw new Error('`sourceBlock` must be a 64 character hex string');
+      throw new Error("`sourceBlock` must be a 64 character hex string");
     }
     if (representative.length != 64) {
-      throw new Error('`representative` must be a 64 character RaiBlock address');
+      throw new Error(
+        "`representative` must be a 64 character RaiBlock address"
+      );
     }
 
     const bipPath = BIPPath.fromString(path).toPathArray();
@@ -120,12 +124,12 @@ export default class Xrb {
     const p1 = 0x00;
     const p2 = 0x00;
 
+    let size = 1 + 4 * bipPath.length; // bipPath
+    size += 1 + representative.length; // representative
+    size += 32; // sourceBlock
+
     let ptr = 0;
-    let buf = Buffer.alloc(
-      1 + 4 * bipPath.length + // bipPath
-      1 + representative.length + // representative
-      32 // sourceBlock
-    );
+    let buf = Buffer.alloc(size);
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
@@ -136,10 +140,10 @@ export default class Xrb {
 
     buf.writeUInt8(representative.length, ptr);
     ptr += 1;
-    buf.write(representative, ptr, representative.length, 'ascii');
+    buf.write(representative, ptr, representative.length, "ascii");
     ptr += representative.length;
 
-    buf.write(sourceBlock, ptr, 32, 'hex');
+    buf.write(sourceBlock, ptr, 32, "hex");
     ptr += 32;
 
     buf = await this.transport.send(cla, ins, p1, p2, buf);
@@ -147,10 +151,10 @@ export default class Xrb {
 
     const result = {};
     ptr += 32;
-    result.blockHash = buf.slice(ptr - 32, ptr).toString('hex');
+    result.blockHash = buf.slice(ptr - 32, ptr).toString("hex");
 
     ptr += 64;
-    result.signature = buf.slice(ptr - 64, ptr).toString('hex');
+    result.signature = buf.slice(ptr - 64, ptr).toString("hex");
 
     return result;
   }
@@ -171,16 +175,16 @@ export default class Xrb {
   async signReceiveBlock(
     path: string,
     previousBlock: string,
-    sourceBlock: string,
+    sourceBlock: string
   ): Promise<{
     blockHash: string,
-    signature: string,
+    signature: string
   }> {
     if (previousBlock.length != 64) {
-      throw new Error('`previousBlock` must be a 64 character hex string');
+      throw new Error("`previousBlock` must be a 64 character hex string");
     }
     if (sourceBlock.length != 64) {
-      throw new Error('`sourceBlock` must be a 64 character hex string');
+      throw new Error("`sourceBlock` must be a 64 character hex string");
     }
 
     const bipPath = BIPPath.fromString(path).toPathArray();
@@ -190,12 +194,12 @@ export default class Xrb {
     const p1 = 0x01;
     const p2 = 0x00;
 
+    let size = 1 + 4 * bipPath.length; // bipPath
+    size += 32; // previousBlock
+    size += 32; // sourceBlock
+
     let ptr = 0;
-    let buf = Buffer.alloc(
-      1 + 4 * bipPath.length + // bipPath
-      32 + // previousBlock
-      32 // sourceBlock
-    );
+    let buf = Buffer.alloc(size);
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
@@ -204,10 +208,10 @@ export default class Xrb {
       ptr += 4;
     });
 
-    buf.write(previousBlock, ptr, 32, 'hex');
+    buf.write(previousBlock, ptr, 32, "hex");
     ptr += 32;
 
-    buf.write(sourceBlock, ptr, 32, 'hex');
+    buf.write(sourceBlock, ptr, 32, "hex");
     ptr += 32;
 
     buf = await this.transport.send(cla, ins, p1, p2, buf);
@@ -215,10 +219,10 @@ export default class Xrb {
 
     const result = {};
     ptr += 32;
-    result.blockHash = buf.slice(ptr - 32, ptr).toString('hex');
+    result.blockHash = buf.slice(ptr - 32, ptr).toString("hex");
 
     ptr += 64;
-    result.signature = buf.slice(ptr - 64, ptr).toString('hex');
+    result.signature = buf.slice(ptr - 64, ptr).toString("hex");
 
     return result;
   }
@@ -242,19 +246,21 @@ export default class Xrb {
     path: string,
     previousBlock: string,
     destinationAddress: string,
-    balance: string,
+    balance: string
   ): Promise<{
     blockHash: string,
-    signature: string,
+    signature: string
   }> {
     if (previousBlock.length != 64) {
-      throw new Error('`previousBlock` must be a 64 character hex string');
+      throw new Error("`previousBlock` must be a 64 character hex string");
     }
     if (destinationAddress.length != 64) {
-      throw new Error('`destinationAddress` must be a 64 character RaiBlock address');
+      throw new Error(
+        "`destinationAddress` must be a 64 character RaiBlock address"
+      );
     }
     if (balance.length != 32) {
-      throw new Error('`balance` must be a 32 character hex string');
+      throw new Error("`balance` must be a 32 character hex string");
     }
 
     const bipPath = BIPPath.fromString(path).toPathArray();
@@ -264,13 +270,13 @@ export default class Xrb {
     const p1 = 0x02;
     const p2 = 0x00;
 
+    let size = 1 + 4 * bipPath.length; // bipPath
+    size += 32; // previousBlock
+    size += 1 + destinationAddress.length; // destinationAddress
+    size += 16; // balance
+
     let ptr = 0;
-    let buf = Buffer.alloc(
-      1 + 4 * bipPath.length + // bipPath
-      32 + // previousBlock
-      1 + destinationAddress.length + // destinationAddress
-      16 // balance
-    );
+    let buf = Buffer.alloc(size);
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
@@ -279,15 +285,15 @@ export default class Xrb {
       ptr += 4;
     });
 
-    buf.write(previousBlock, ptr, 32, 'hex');
+    buf.write(previousBlock, ptr, 32, "hex");
     ptr += 32;
 
     buf.writeUInt8(destinationAddress.length, ptr);
     ptr += 1;
-    buf.write(destinationAddress, ptr, destinationAddress.length, 'ascii');
+    buf.write(destinationAddress, ptr, destinationAddress.length, "ascii");
     ptr += destinationAddress.length;
 
-    buf.write(balance, ptr, 16, 'hex')
+    buf.write(balance, ptr, 16, "hex");
     ptr += 16;
 
     buf = await this.transport.send(cla, ins, p1, p2, buf);
@@ -295,10 +301,10 @@ export default class Xrb {
 
     const result = {};
     ptr += 32;
-    result.blockHash = buf.slice(ptr - 32, ptr).toString('hex');
+    result.blockHash = buf.slice(ptr - 32, ptr).toString("hex");
 
     ptr += 64;
-    result.signature = buf.slice(ptr - 64, ptr).toString('hex');
+    result.signature = buf.slice(ptr - 64, ptr).toString("hex");
 
     return result;
   }
@@ -319,16 +325,18 @@ export default class Xrb {
   async signChangeBlock(
     path: string,
     previousBlock: string,
-    representative: string,
+    representative: string
   ): Promise<{
     blockHash: string,
-    signature: string,
+    signature: string
   }> {
     if (previousBlock.length != 64) {
-      throw new Error('`previousBlock` must be a 64 character hex string');
+      throw new Error("`previousBlock` must be a 64 character hex string");
     }
     if (representative.length != 64) {
-      throw new Error('`representative` must be a 64 character RaiBlock address');
+      throw new Error(
+        "`representative` must be a 64 character RaiBlock address"
+      );
     }
 
     const bipPath = BIPPath.fromString(path).toPathArray();
@@ -338,12 +346,12 @@ export default class Xrb {
     const p1 = 0x03;
     const p2 = 0x00;
 
+    let size = 1 + 4 * bipPath.length; // bipPath
+    size += 32; // previousBlock
+    size += 1 + representative.length; // representative
+
     let ptr = 0;
-    let buf = Buffer.alloc(
-      1 + 4 * bipPath.length + // bipPath
-      32 + // previousBlock
-      1 + representative.length // representative
-    );
+    let buf = Buffer.alloc(size);
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
@@ -352,12 +360,12 @@ export default class Xrb {
       ptr += 4;
     });
 
-    buf.write(previousBlock, ptr, 32, 'hex');
+    buf.write(previousBlock, ptr, 32, "hex");
     ptr += 32;
 
     buf.writeUInt8(representative.length, ptr);
     ptr += 1;
-    buf.write(representative, ptr, representative.length, 'ascii');
+    buf.write(representative, ptr, representative.length, "ascii");
     ptr += representative.length;
 
     buf = await this.transport.send(cla, ins, p1, p2, buf);
@@ -365,10 +373,10 @@ export default class Xrb {
 
     const result = {};
     ptr += 32;
-    result.blockHash = buf.slice(ptr - 32, ptr).toString('hex');
+    result.blockHash = buf.slice(ptr - 32, ptr).toString("hex");
 
     ptr += 64;
-    result.signature = buf.slice(ptr - 64, ptr).toString('hex');
+    result.signature = buf.slice(ptr - 64, ptr).toString("hex");
 
     return result;
   }
