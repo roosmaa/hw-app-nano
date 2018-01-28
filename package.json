@@ -1,0 +1,55 @@
+{
+  "name": "hw-app-xrb",
+  "version": "1.0.0",
+  "author": "Mart Roosmaa <mart@roosmaa.net>",
+  "license": "Apache-2.0",
+  "description": "Ledger Hardware Wallet RaiBlocks Application API",
+  "keywords": [
+    "Ledger",
+    "LedgerWallet",
+    "RaiBlocks",
+    "xrb",
+    "NanoS",
+    "Blue",
+    "Hardware Wallet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roosmaa/hw-app-xrb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roosmaa/hw-app-xrb/issues"
+  },
+  "homepage": "https://github.com/roosmaa/hw-app-xrb#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/Xrb.js",
+  "scripts": {
+    "flow": "flow",
+    "clean": "rm -rf lib/",
+    "prettier": "prettier --write 'src/**/*.js'",
+    "prettier-diff": "prettier --list-different 'src/**/*.js'",
+    "lint": "eslint src",
+    "build": "babel --source-maps -d lib src && flow-copy-source -v src lib",
+    "watch": "babel --watch --source-maps -d lib src & flow-copy-source -w -v src lib"
+  },
+  "dependencies": {
+    "@ledgerhq/hw-transport": "^2.1.0",
+    "bip32-path": "^0.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.16.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "flow-bin": "^0.63.1",
+    "flow-copy-source": "^1.2.2",
+    "flow-typed": "^2.2.3",
+    "prettier": "^1.10.2"
+  }
+}
