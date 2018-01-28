@@ -55,7 +55,7 @@ export default class Xrb {
     const bipPath = BIPPath.fromString(path).toPathArray();
 
     const cla = 0xa1;
-    const ins = 0x01;
+    const ins = 0x02;
     const p1 = boolDisplay ? 0x01 : 0x00;
     const p2 = boolChaincode ? 0x01 : 0x00;
 
