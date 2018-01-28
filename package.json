@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@ledgerhq/hw-transport": "^2.1.0",
+    "big-integer": "^1.6.26",
     "bip32-path": "^0.4.2"
   },
   "devDependencies": {

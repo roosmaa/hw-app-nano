@@ -18,6 +18,7 @@
 
 import type Transport from "@ledgerhq/hw-transport";
 import BIPPath from "bip32-path";
+import bigInt from "big-integer";
 
 /**
  * RaiBlocks API
@@ -379,5 +380,31 @@ export default class Xrb {
     result.signature = buf.slice(ptr - 64, ptr).toString("hex");
 
     return result;
+  }
+
+  /**
+   * Encode the balance value (128bit big endian integer) as hex string
+   * @param value string representation of a base 10 number
+   * @return a string that of hex encoded value of the value
+   * @example
+   * Xrb.encodeBalance("14000000000000000000000000") == "00000000000B949D854F34FECE000000"
+   */
+  static encodeBalance(value: string): string {
+    value = bigInt(value, 10).toString(16);
+    if (value.length < 32) {
+      value = "0".repeat(32 - value.length) + value;
+    }
+    return value;
+  }
+
+  /**
+   * Decode the balance value (128bit big endian integer) from hex string
+   * @param value hex encoded value
+   * @return a string of the number in base 10
+   * @example
+   * Xrb.decodeBalance("00000000000B949D854F34FECE000000") == "14000000000000000000000000"
+   */
+  static decodeBalance(value: string): string {
+    return bigInt(value, 16).toString();
   }
 }
