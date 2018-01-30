@@ -36,6 +36,40 @@ export default class Xrb {
   }
 
   /**
+   * Get RaiBlocks application configuration.
+   * @return an object with a version
+   * @example
+   * xrb.getAppConfiguration().then(o => o.version)
+   */
+  async getAppConfiguration(): Promise<{
+    version: string
+  }> {
+    const cla = 0xa1;
+    const ins = 0x01;
+    const p1 = 0x00;
+    const p2 = 0x00;
+
+    let size = 0;
+    let buf = Buffer.alloc(size);
+
+    buf = await this.transport.send(cla, ins, p1, p2, buf);
+    let ptr = 0;
+
+    const result = {};
+
+    const versionMajor = buf.readUInt8(ptr);
+    ptr += 1;
+    const versionMinor = buf.readUInt8(ptr);
+    ptr += 1;
+    const versionPatch = buf.readUInt8(ptr);
+    ptr += 1;
+
+    result.version =
+      "" + versionMajor + "." + versionMinor + "." + versionPatch;
+    return result;
+  }
+
+  /**
    * Get RaiBlocks address for the given BIP 32 path.
    * @param path a path in BIP 32 format
    * @option boolDisplay display the address on the device
