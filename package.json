@@ -28,6 +28,7 @@
   "scripts": {
     "flow": "flow",
     "clean": "rm -rf lib/",
+    "documentation": "documentation build src/** --project-name 'hw-app-xrb' --project-version `node -e \"console.log(require('./package.json').version)\"` --project-homepage https://github.com/roosmaa/hw-app-xrb -g -f html -o docs/",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier-diff": "prettier --list-different 'src/**/*.js'",
     "lint": "eslint src",
@@ -45,6 +46,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
+    "documentation": "^5.3.5",
     "eslint": "^4.16.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.42.0",
