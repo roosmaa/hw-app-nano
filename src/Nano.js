@@ -1,5 +1,5 @@
 /********************************************************************************
- *   RaiBlocks Ledger JS API
+ *   $NANO Ledger JS API
  *   (c) 2018 Mart Roosmaa
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,13 +21,13 @@ import BIPPath from "bip32-path";
 import bigInt from "big-integer";
 
 /**
- * RaiBlocks API
+ * Nano API
  *
  * @example
- * import Xrb from "hw-app-xrb";
- * const xrb = new Xrb(transport);
+ * import Nano from "hw-app-nano";
+ * const nano = new Nano(transport);
  */
-export default class Xrb {
+export default class Nano {
   transport: Transport<*>;
 
   constructor(transport: Transport<*>) {
@@ -36,10 +36,10 @@ export default class Xrb {
   }
 
   /**
-   * Get RaiBlocks application configuration.
+   * Get Nano application configuration.
    * @return an object with a version
    * @example
-   * xrb.getAppConfiguration().then(o => o.version)
+   * nano.getAppConfiguration().then(o => o.version)
    */
   async getAppConfiguration(): Promise<{
     version: string
@@ -70,13 +70,13 @@ export default class Xrb {
   }
 
   /**
-   * Get RaiBlocks address for the given BIP 32 path.
+   * Get Nano address for the given BIP 32 path.
    * @param path a path in BIP 32 format
    * @option boolDisplay display the address on the device
    * @option boolChaincode query for the chain code associated with the given BIP 32 path
    * @return an object with a publicKey, address and (optionally) chainCode
    * @example
-   * xrb.getAddress("44'/165'/0'").then(o => o.address)
+   * nano.getAddress("44'/165'/0'").then(o => o.address)
    */
   async getAddress(
     path: string,
@@ -126,12 +126,12 @@ export default class Xrb {
    * Generate a signature for an open block
    * @param path a path in BIP 32 format
    * @param sourceBlock hash (in hex) of the block from which to receive the funds
-   * @param representative account of the representative for the account being opened
+   * @param representative account of the representative for the account being opened (both nano and xrb addresses are supported)
    * @return an object with a blockHash and signature
    * @example
-   * xrb.signOpenBlock(
+   * nano.signOpenBlock(
    *   "44'/165'/0'",
-   *   "xrb_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
+   *   "nano_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
    *   "06B95C8A7EC4116E5BD907CD6DC65D310E065992A2E1D02F337D1A8308DEBC14"
    * ).then(o => o.signature)
    */
@@ -146,9 +146,9 @@ export default class Xrb {
     if (sourceBlock.length != 64) {
       throw new Error("`sourceBlock` must be a 64 character hex string");
     }
-    if (representative.length != 64) {
+    if (representative.length != 65 && representative.length != 64) {
       throw new Error(
-        "`representative` must be a 64 character RaiBlock address"
+        "`representative` must be either a 65 character nano address or a 64 character xrb address"
       );
     }
 
@@ -201,7 +201,7 @@ export default class Xrb {
    * @param sourceBlock hash (in hex) of the block from which to receive the funds
    * @return an object with a blockHash and signature
    * @example
-   * xrb.signReceiveBlock(
+   * nano.signReceiveBlock(
    *   "44'/165'/0'",
    *   "991CF190094C00F0B68E2E5F75F6BEE95A2E0BD93CEAA4A6734DB9F19B728948",
    *   "06B95C8A7EC4116E5BD907CD6DC65D310E065992A2E1D02F337D1A8308DEBC14"
@@ -266,14 +266,14 @@ export default class Xrb {
    * Generate a signature for a send block
    * @param path a path in BIP 32 format
    * @param previousBlock hash (in hex) of the previous block in the account chain
-   * @param destinationAddress address of the account to send XRB to
+   * @param destinationAddress address of the account to send XRB to (both nano and xrb addresses are supported)
    * @param balance new account balance (uint128 encoded as big endian bytes in hex) after the transfer
    * @return an object with a blockHash and signature
    * @example
-   * xrb.signReceiveBlock(
+   * nano.signReceiveBlock(
    *   "44'/165'/0'",
    *   "991CF190094C00F0B68E2E5F75F6BEE95A2E0BD93CEAA4A6734DB9F19B728948",
-   *   "xrb_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
+   *   "nano_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
    *   "00000000000B949D854F34FECE000000" // 0.000014 XRB
    * ).then(o => o.signature)
    */
@@ -289,9 +289,9 @@ export default class Xrb {
     if (previousBlock.length != 64) {
       throw new Error("`previousBlock` must be a 64 character hex string");
     }
-    if (destinationAddress.length != 64) {
+    if (destinationAddress.length != 65 && destinationAddress.length != 64) {
       throw new Error(
-        "`destinationAddress` must be a 64 character RaiBlock address"
+        "`destinationAddress` must be either a 65 character nano address or a 64 character xrb address"
       );
     }
     if (balance.length != 32) {
@@ -348,13 +348,13 @@ export default class Xrb {
    * Generate a signature for a change block
    * @param path a path in BIP 32 format
    * @param previousBlock hash (in hex) of the previous block in the account chain
-   * @param representative account of the new representative for the account
+   * @param representative account of the new representative for the account (both nano and xrb addresses are supported)
    * @return an object with a blockHash and signature
    * @example
-   * xrb.signChangeBlock(
+   * nano.signChangeBlock(
    *   "44'/165'/0'",
    *   "991CF190094C00F0B68E2E5F75F6BEE95A2E0BD93CEAA4A6734DB9F19B728948",
-   *   "xrb_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k"
+   *   "nano_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k"
    * ).then(o => o.signature)
    */
   async signChangeBlock(
@@ -368,9 +368,9 @@ export default class Xrb {
     if (previousBlock.length != 64) {
       throw new Error("`previousBlock` must be a 64 character hex string");
     }
-    if (representative.length != 64) {
+    if (representative.length != 65 && representative.length != 64) {
       throw new Error(
-        "`representative` must be a 64 character RaiBlock address"
+        "`representative` must be either a 65 character nano address or a 64 character xrb address"
       );
     }
 
@@ -421,7 +421,7 @@ export default class Xrb {
    * @param value string representation of a base 10 number
    * @return a string that of hex encoded value of the value
    * @example
-   * Xrb.encodeBalance("14000000000000000000000000") == "00000000000B949D854F34FECE000000"
+   * Nano.encodeBalance("14000000000000000000000000") == "00000000000B949D854F34FECE000000"
    */
   static encodeBalance(value: string): string {
     value = bigInt(value, 10).toString(16);
@@ -436,7 +436,7 @@ export default class Xrb {
    * @param value hex encoded value
    * @return a string of the number in base 10
    * @example
-   * Xrb.decodeBalance("00000000000B949D854F34FECE000000") == "14000000000000000000000000"
+   * Nano.decodeBalance("00000000000B949D854F34FECE000000") == "14000000000000000000000000"
    */
   static decodeBalance(value: string): string {
     return bigInt(value, 16).toString();

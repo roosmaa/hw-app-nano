@@ -1,34 +1,35 @@
 {
-  "name": "hw-app-xrb",
+  "name": "hw-app-nano",
   "version": "1.0.0",
   "author": "Mart Roosmaa <mart@roosmaa.net>",
   "license": "Apache-2.0",
-  "description": "Ledger Hardware Wallet RaiBlocks Application API",
+  "description": "Ledger Hardware Wallet $NANO Application API",
   "keywords": [
     "Ledger",
     "LedgerWallet",
-    "RaiBlocks",
-    "xrb",
+    "Nano",
+    "NanoCurrency",
+    "$NANO",
     "NanoS",
     "Blue",
     "Hardware Wallet"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roosmaa/hw-app-xrb.git"
+    "url": "git+https://github.com/roosmaa/hw-app-nano.git"
   },
   "bugs": {
-    "url": "https://github.com/roosmaa/hw-app-xrb/issues"
+    "url": "https://github.com/roosmaa/hw-app-nano/issues"
   },
-  "homepage": "https://github.com/roosmaa/hw-app-xrb#readme",
+  "homepage": "https://github.com/roosmaa/hw-app-nano#readme",
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/Xrb.js",
+  "main": "lib/Nano.js",
   "scripts": {
     "flow": "flow",
     "clean": "rm -rf lib/",
-    "documentation": "documentation build src/** --project-name 'hw-app-xrb' --project-version `node -e \"console.log(require('./package.json').version)\"` --project-homepage https://github.com/roosmaa/hw-app-xrb -g -f html -o docs/",
+    "documentation": "documentation build src/** --project-name 'hw-app-nano' --project-version `node -e \"console.log(require('./package.json').version)\"` --project-homepage https://github.com/roosmaa/hw-app-nano -g -f html -o docs/",
     "prettier": "prettier --write 'src/**/*.js'",
     "prettier-diff": "prettier --list-different 'src/**/*.js'",
     "lint": "eslint src",
