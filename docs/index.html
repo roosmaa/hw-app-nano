@@ -25,6 +25,40 @@
               
                 
                 <li><a
+                  href='#status_codes'
+                  class=" toggle-sibling">
+                  STATUS_CODES
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#status_codessecurity_status_not_satisfied'
+                        class='regular pre-open'>
+                        .SECURITY_STATUS_NOT_SATISFIED
+                      </a></li>
+                    
+                      <li><a
+                        href='#status_codesconditions_of_use_not_satisfied'
+                        class='regular pre-open'>
+                        .CONDITIONS_OF_USE_NOT_SATISFIED
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
                   href='#nano'
                   class=" toggle-sibling">
                   Nano
@@ -113,19 +147,202 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='nano'>
-      Nano
+    <h3 class='fl m0' id='status_codes'>
+      STATUS_CODES
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L30-L444'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L36-L47'>
       <span>src/Nano.js</span>
       </a>
     
   </div>
   
 
-  <p>Nano API</p>
+  <p>An enum containing the common status codes returned via
+the TransportStatusError#statusCode field.</p>
+
+
+  <div class='pre p1 fill-light mt0'>STATUS_CODES</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>nano.getAddress(<span class="hljs-string">"44'/165'/0'"</span>, <span class="hljs-literal">true</span>).then(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
+  <span class="hljs-comment">// ...</span>
+}, err =&gt; {
+  <span class="hljs-keyword">if</span> (err.statusCode == STATUS_CODES.CONDITIONS_OF_USE_NOT_SATISFIED) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'User cancelled the request'</span>);
+  }
+  <span class="hljs-comment">// ..</span>
+});</pre>
+    
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='status_codessecurity_status_not_satisfied'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>SECURITY_STATUS_NOT_SATISFIED</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L41-L41'>
+      <span>src/Nano.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Security status not satisfied is returned when the
+device is still locked</p>
+
+
+  <div class='pre p1 fill-light mt0'>SECURITY_STATUS_NOT_SATISFIED</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='status_codesconditions_of_use_not_satisfied'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>CONDITIONS_OF_USE_NOT_SATISFIED</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L46-L46'>
+      <span>src/Nano.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Conditions of use not satisfied is returned when the
+user declines the request to complete the action.</p>
+
+
+  <div class='pre p1 fill-light mt0'>CONDITIONS_OF_USE_NOT_SATISFIED</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='nano'>
+      Nano
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L56-L470'>
+      <span>src/Nano.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Nano API (default export of this module)</p>
 
 
   <div class='pre p1 fill-light mt0'>new Nano(transport: Transport&#x3C;any>)</div>
@@ -187,7 +404,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L426-L432'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L452-L458'>
       <span>src/Nano.js</span>
       </a>
     
@@ -270,7 +487,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L441-L443'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L467-L469'>
       <span>src/Nano.js</span>
       </a>
     
@@ -361,7 +578,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L44-L70'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L70-L96'>
       <span>src/Nano.js</span>
       </a>
     
@@ -430,7 +647,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L81-L123'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L107-L149'>
       <span>src/Nano.js</span>
       </a>
     
@@ -529,7 +746,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L138-L195'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L164-L221'>
       <span>src/Nano.js</span>
       </a>
     
@@ -634,7 +851,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L210-L263'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L236-L289'>
       <span>src/Nano.js</span>
       </a>
     
@@ -739,7 +956,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L280-L345'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L306-L371'>
       <span>src/Nano.js</span>
       </a>
     
@@ -854,7 +1071,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/e4dc8fb18366cbf34d8fb008db41bf6cd3a8fae0/src/Nano.js#L360-L417'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/roosmaa/hw-app-nano/blob/51e25766c345d390760d449815e77b5c049808b2/src/Nano.js#L386-L443'>
       <span>src/Nano.js</span>
       </a>
     

@@ -21,7 +21,33 @@ import BIPPath from "bip32-path";
 import bigInt from "big-integer";
 
 /**
- * Nano API
+ * An enum containing the common status codes returned via
+ * the TransportStatusError#statusCode field.
+ * @example
+ * nano.getAddress("44'/165'/0'", true).then(o => {
+ *   // ...
+ * }, err => {
+ *   if (err.statusCode == STATUS_CODES.CONDITIONS_OF_USE_NOT_SATISFIED) {
+ *     console.log('User cancelled the request');
+ *   }
+ *   // ..
+ * });
+ */
+export const STATUS_CODES = {
+  /**
+   * Security status not satisfied is returned when the
+   * device is still locked
+   */
+  SECURITY_STATUS_NOT_SATISFIED: 0x6982,
+  /**
+   * Conditions of use not satisfied is returned when the
+   * user declines the request to complete the action.
+   */
+  CONDITIONS_OF_USE_NOT_SATISFIED: 0x6985
+};
+
+/**
+ * Nano API (default export of this module)
  *
  * @example
  * import Nano from "hw-app-nano";
