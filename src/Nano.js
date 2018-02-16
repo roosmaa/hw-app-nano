@@ -129,9 +129,8 @@ export default class Nano {
     let ptr = 0;
 
     const result = {};
-    const publicKeyLength = buf.readUInt8(ptr);
-    ptr += 1 + publicKeyLength;
-    result.publicKey = buf.slice(ptr - publicKeyLength, ptr).toString("hex");
+    ptr += 32;
+    result.publicKey = buf.slice(ptr - 32, ptr).toString("hex");
 
     const addressLength = buf.readUInt8(ptr);
     ptr += 1 + addressLength;
