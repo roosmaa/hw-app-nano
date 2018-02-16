@@ -99,26 +99,23 @@ export default class Nano {
    * Get Nano address for the given BIP 32 path.
    * @param path a path in BIP 32 format
    * @option boolDisplay display the address on the device
-   * @option boolChaincode query for the chain code associated with the given BIP 32 path
-   * @return an object with a publicKey, address and (optionally) chainCode
+   * @return an object with a publicKey and address
    * @example
    * nano.getAddress("44'/165'/0'").then(o => o.address)
    */
   async getAddress(
     path: string,
-    boolDisplay?: boolean,
-    boolChaincode?: boolean
+    boolDisplay?: boolean
   ): Promise<{
     publicKey: string,
-    address: string,
-    chainCode?: string
+    address: string
   }> {
     const bipPath = BIPPath.fromString(path).toPathArray();
 
     const cla = 0xa1;
     const ins = 0x02;
     const p1 = boolDisplay ? 0x01 : 0x00;
-    const p2 = boolChaincode ? 0x01 : 0x00;
+    const p2 = 0x00;
 
     let size = 1 + 4 * bipPath.length; // bipPath
 
@@ -139,11 +136,6 @@ export default class Nano {
     const addressLength = buf.readUInt8(ptr);
     ptr += 1 + addressLength;
     result.address = buf.slice(ptr - addressLength, ptr).toString("ascii");
-
-    if (boolChaincode) {
-      ptr += 32;
-      result.chainCode = buf.slice(ptr - 32, ptr).toString("hex");
-    }
 
     return result;
   }
