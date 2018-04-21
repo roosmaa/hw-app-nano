@@ -1,4 +1,6 @@
 [ignore]
+.*/node_modules/.*/__tests__/.*
+.*/node_modules/.*/tests/.*
 
 [include]
 
