@@ -448,7 +448,7 @@ export default class Nano {
     size += 32; // sourceBlock / recipient
     size += 32; // representative
     size += 16; // balance
-    size += 64; // balance
+    size += 64; // signature
 
     let ptr = 0;
     let buf = Buffer.alloc(size);
