@@ -203,8 +203,8 @@ function processBlockData(
       "`representative` must be either a 65 character nano address or a 64 character xrb address"
     );
   }
-  if (b.balance.length != 32) {
-    throw new Error("`balance` must be a 32 character hex string");
+  if (!/[0-9]+/.test(b.balance)) {
+    throw new Error("`balance` must be a number");
   }
   if (b.sourceBlock && b.sourceBlock.length != 64) {
     throw new Error("`sourceBlock` must be a 64 character hex string");
