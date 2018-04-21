@@ -379,13 +379,13 @@ export default class Nano {
     });
 
     if (b.previousBlock) {
-      ptr += buf.write(b.previousBlock, ptr, undefined, "hex");
+      ptr += buf.write(b.previousBlock, ptr, buf.length - ptr, "hex");
     } else {
       ptr += 32;
     }
 
     if (b.sourceBlock) {
-      ptr += buf.write(b.sourceBlock, ptr, undefined, "hex");
+      ptr += buf.write(b.sourceBlock, ptr, buf.length - ptr, "hex");
     } else if (recipientPublicKey) {
       ptr += recipientPublicKey.copy(buf, ptr);
     } else {
@@ -393,7 +393,7 @@ export default class Nano {
     }
 
     ptr += representativePublicKey.copy(buf, ptr);
-    ptr += buf.write(encodeBalance(b.balance), ptr, undefined, "hex");
+    ptr += buf.write(encodeBalance(b.balance), ptr, buf.length - ptr, "hex");
 
     buf = await this.transport.send(cla, ins, p1, p2, buf);
     ptr = 0;
@@ -461,13 +461,13 @@ export default class Nano {
     });
 
     if (b.previousBlock) {
-      ptr += buf.write(b.previousBlock, ptr, undefined, "hex");
+      ptr += buf.write(b.previousBlock, ptr, buf.length - ptr, "hex");
     } else {
       ptr += 32;
     }
 
     if (b.sourceBlock) {
-      ptr += buf.write(b.sourceBlock, ptr, undefined, "hex");
+      ptr += buf.write(b.sourceBlock, ptr, buf.length - ptr, "hex");
     } else if (recipientPublicKey) {
       ptr += recipientPublicKey.copy(buf, ptr);
     } else {
@@ -475,8 +475,8 @@ export default class Nano {
     }
 
     ptr += representativePublicKey.copy(buf, ptr);
-    ptr += buf.write(encodeBalance(b.balance), ptr, undefined, "hex");
-    ptr += buf.write(signature, ptr, undefined, "hex");
+    ptr += buf.write(encodeBalance(b.balance), ptr, buf.length - ptr, "hex");
+    ptr += buf.write(signature, ptr, buf.length - ptr, "hex");
 
     await this.transport.send(cla, ins, p1, p2, buf);
   }
