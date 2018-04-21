@@ -1,6 +1,6 @@
 # hw-app-nano
 
-**[[API reference]](http://www.roosmaa.net/hw-app-nano/)**
+**[[API reference]](https://www.roosmaa.net/hw-app-nano/)**
 
 Library for interacting with the $NANO Ledger wallet from the browser or Node.
 
