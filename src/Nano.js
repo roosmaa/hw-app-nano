@@ -373,7 +373,7 @@ export default class Nano {
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
-    bipPath.forEach((segment, index) => {
+    bipPath.forEach((segment, _) => {
       buf.writeUInt32BE(segment, ptr);
       ptr += 4;
     });
@@ -398,7 +398,6 @@ export default class Nano {
     buf = await this.transport.send(cla, ins, p1, p2, buf);
     ptr = 0;
 
-    const result = {};
     ptr += 32;
     const blockHash = buf.slice(ptr - 32, ptr).toString("hex");
 
@@ -455,7 +454,7 @@ export default class Nano {
 
     buf.writeUInt8(bipPath.length, ptr);
     ptr += 1;
-    bipPath.forEach((segment, index) => {
+    bipPath.forEach((segment, _) => {
       buf.writeUInt32BE(segment, ptr);
       ptr += 4;
     });
