@@ -27,6 +27,7 @@
   },
   "main": "lib/Nano.js",
   "scripts": {
+    "prepublish": "npm run clean && npm run build",
     "flow": "flow",
     "clean": "rm -rf lib/",
     "documentation": "documentation build src/** --project-name 'hw-app-nano' --project-version `node -e \"console.log(require('./package.json').version)\"` --project-homepage https://github.com/roosmaa/hw-app-nano -g -f html -o docs/",
