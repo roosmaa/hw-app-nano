@@ -20,7 +20,6 @@ import type Transport from "@ledgerhq/hw-transport";
 import BIPPath from "bip32-path";
 import { decodeAddress, encodeBalance } from "./util";
 
-
 /**
  * An enum containing the common status codes returned via
  * the TransportStatusError#statusCode field.
