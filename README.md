@@ -2,7 +2,7 @@
 
 **[[API reference]](https://www.roosmaa.net/hw-app-nano/)**
 
-Library for interacting with the $NANO Ledger wallet from the browser or Node.
+Library for interacting with the Ledger Nano-derived coin apps from the browser or Node.
 
 In the browser, the U2F protocol is used to communicate with the dongle. For now, only Google Chrome (version 38 or later) and Opera (version 40 or later) support the U2F protocol.
 
