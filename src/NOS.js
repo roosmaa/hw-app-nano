@@ -32,7 +32,7 @@ export default class NOS extends BaseAPI {
     super(transport, {
       coinName: "NOS",
       addressPrimaryPrefix: "usd_",
-      addressSecondaryPrefix: "usd_"
+      addressSecondaryPrefix: "nos_"
     });
   }
 
