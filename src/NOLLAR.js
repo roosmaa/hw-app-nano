@@ -21,28 +21,28 @@ import type { BlockData } from "./api";
 import { BaseAPI, getAddress, signBlock, cacheBlock } from "./api";
 
 /**
- * NOS API
+ * NOLLAR API
  *
  * @example
- * import { NOS } from "hw-app-nano";
- * const nos = new NOS(transport);
+ * import { NOLLAR } from "hw-app-nano";
+ * const nollar = new NOLLAR(transport);
  */
-export default class NOS extends BaseAPI {
+export default class NOLLAR extends BaseAPI {
   constructor(transport: Transport<*>) {
     super(transport, {
-      coinName: "NOS",
-      addressPrimaryPrefix: "nos_",
-      addressSecondaryPrefix: "nos_"
+      coinName: "NOLLAR",
+      addressPrimaryPrefix: "usd_",
+      addressSecondaryPrefix: "usd_"
     });
   }
 
   /**
-   * Get NOS address for the given BIP 32 path.
+   * Get NOLLAR address for the given BIP 32 path.
    * @param path a path in BIP 32 format
    * @option boolDisplay display the address on the device
    * @return an object with a publicKey and address
    * @example
-   * nos.getAddress("44'/229'/840'/0'").then(o => o.address)
+   * nollar.getAddress("44'/229'/840'/0'").then(o => o.address)
    */
   async getAddress(
     path: string,
@@ -61,18 +61,18 @@ export default class NOS extends BaseAPI {
    * @param blockData block data to hash and sign
    *
    * @example <caption>Opening an account</caption>
-   * nos.signBlock("44'/229'/840'/0'", {
-   *   representative: "nos_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
+   * nollar.signBlock("44'/229'/840'/0'", {
+   *   representative: "usd_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
    *   balance: "100000000000000000000000000000000",
    *   sourceBlock: "06B95C8A7EC4116E5BD907CD6DC65D310E065992A2E1D02F337D1A8308DEBC14"
    * }).then(o => o.signature)
    *
    * @example <caption>Sending funds</caption>
-   * nos.signBlock("44'/229'/840'/0'", {
+   * nollar.signBlock("44'/229'/840'/0'", {
    *   previousBlock: "991CF190094C00F0B68E2E5F75F6BEE95A2E0BD93CEAA4A6734DB9F19B728948",
-   *   representative: "nos_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
+   *   representative: "usd_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
    *   balance: "100000000000000000000000000000000",
-   *   recipient: "nos_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k"
+   *   recipient: "usd_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k"
    * }).then(o => o.signature)
    */
   async signBlock(
@@ -93,8 +93,8 @@ export default class NOS extends BaseAPI {
    * @param signature signature (in hex) of the block
    *
    * @example
-   * nos.cacheBlock("44'/229'/840'/0'", {
-   *   representative: "nos_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
+   * nollar.cacheBlock("44'/229'/840'/0'", {
+   *   representative: "usd_3hd4ezdgsp15iemx7h81in7xz5tpxi43b6b41zn3qmwiuypankocw3awes5k",
    *   balance: "100000000000000000000000000000000",
    *   sourceBlock: "06B95C8A7EC4116E5BD907CD6DC65D310E065992A2E1D02F337D1A8308DEBC14"
    * });
