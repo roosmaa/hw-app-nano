@@ -30,7 +30,7 @@ import { BaseAPI, getAddress, signBlock, cacheBlock } from "./api";
 export default class NOLLAR extends BaseAPI {
   constructor(transport: Transport<*>) {
     super(transport, {
-      coinName: "NOLLAR",
+      coinName: "NOS",
       addressPrimaryPrefix: "usd_",
       addressSecondaryPrefix: "usd_"
     });
