@@ -40,25 +40,25 @@
     "watch": "babel --watch --source-maps -d lib src & flow-copy-source -w -v src lib"
   },
   "dependencies": {
-    "@ledgerhq/hw-transport": "^4.15.0",
-    "big-integer": "^1.6.26",
+    "@ledgerhq/hw-transport": "^4.61.0",
+    "big-integer": "^1.6.43",
     "bip32-path": "^0.4.2",
     "blakejs": "^1.1.0",
     "nano-base32": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.5",
+    "babel-eslint": "^10.0.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
-    "documentation": "^8.0.0",
-    "eslint": "^5.0.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.49.3",
-    "flow-bin": "^0.75.0",
-    "flow-copy-source": "^2.0.0",
-    "flow-typed": "^2.4.0",
-    "prettier": "^1.13.6"
+    "documentation": "^11.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-flowtype": "^3.9.1",
+    "flow-bin": "^0.100.0",
+    "flow-copy-source": "^2.0.6",
+    "flow-typed": "^2.5.2",
+    "prettier": "^1.17.1"
   }
 }
